@@ -1,0 +1,43 @@
+name: Chocolatine
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  check_project:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update && sudo apt-get -y install build-essential
+    - name: Clean up unwanted files
+      run: |
+        UNWANTED_FILES=$(find . -type f -not -path "./git/*" -wholename "*tmp/*" -or -name "*~" -or -name "*.o" -or -name "*.so" -or -name "*.gcno" -or -name "*.gdca" -or -name "*.gcov" -or -name "*pain_au_chocolat*")
+        for FILE in $UNWANTED_FILES; do
+          echo "::error file=${FILE#./}, title=Unwanted file detected::${FILE#./}"
+        done
+        if [[ -n $UNWANTED_FILES ]]
+        then
+          exit 1
+        else
+          echo No unwanted files detected
+        fi
+    - name: Compile project
+      run: |
+        make
+        make clean
+    - name: Test project
+      run: |
+        make tests_run
+    - name: Push to mirror
+      uses: pixta-dev/repository-mirroring-action@v1
+      env:
+        TARGET_REPO_URL: ${{ secrets."git@github.com:UlysseZumbrunn/ChocolatineMiRRORTEST.git" }}
+        TARGET_REPO_BRANCH: ${{ github.ref }}
+        SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
