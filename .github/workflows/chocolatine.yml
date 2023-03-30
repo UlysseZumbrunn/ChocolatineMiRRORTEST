@@ -14,7 +14,7 @@ env:
   MIRROR_URL: "git@github.com:UlysseZumbrunn/ChocolatineMiRRORTEST.git"
   EXECUTABLES: ${{ secrets.EXECUTABLES }}
 
-# jobs:
+jobs:
 #   check_coding_style:
 #     runs-on: ubuntu-latest
 #     container: ghcr.io/epitech/coding-style-checker:latest
