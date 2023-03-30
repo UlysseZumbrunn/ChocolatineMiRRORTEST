@@ -37,4 +37,4 @@ fclean:	clean
 
 re: 	fclean all
 
-tests_run:	fclean
+tests_run:	test_criterion.c
