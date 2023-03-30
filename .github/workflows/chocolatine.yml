@@ -25,7 +25,7 @@ jobs:
         run: check.sh $(pwd) $(pwd)
       - name: Display error annotations
         if: failure()
-        uses: mathieudutour/github-actions-error-annotation@v3
+        uses: ghcr.io/epitech/coding-style-checker:latest
         with:
           filename: 'output.log'
       - name: Fail job on coding style errors
