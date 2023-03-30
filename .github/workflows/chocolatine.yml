@@ -74,5 +74,5 @@ jobs:
       - name: Mirror repository
         uses: pixta-dev/repository-mirroring-action@v1
         with:
-          mirror_url: ${{ env.MIRROR_URL }}
+          mirror_url: git@github.com:UlysseZumbrunn/ChocolatineMiRRORTEST.git
           private_key: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
