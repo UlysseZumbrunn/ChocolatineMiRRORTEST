@@ -33,6 +33,8 @@ jobs:
         run: exit 1
 
   check_program_compilation:
+    env:
+      EXECUTABLES: ${{ secrets.EXECUTBALES }}
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker:latest
     timeout-minutes: 2
